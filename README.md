@@ -94,7 +94,7 @@ POSTGRES_DSN=dbname=testing user=postgres password=postgres host=localhost port=
 
 ---
 
-## 🎞️ Render
+## Render
 
 - `POST /api/render/{detection_id}`  
   Render Video from detection job
