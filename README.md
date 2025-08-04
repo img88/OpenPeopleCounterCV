@@ -30,9 +30,17 @@ POSTGRES_DSN=dbname=testing user=postgres password=postgres host=localhost port=
 ```
 2. Run `uvicorn src.main:app`
 3. Download the stream video `POST /api/videos/download`
-4. Detect `POST /api/detection/`
-5. Render detection result `POST /api/render/{detection_id}`
-6. View rendered video `GET /api/videos/player`
+    - Sudah ada contoh bodynya di /docs atau /redoc
+4. Create region (area) `POST /api/regions/`
+    - Sudah ada contoh bodynya di /docs atau /redoc
+5. Detect `POST /api/detection/`
+    - Sudah ada contoh bodynya di /docs atau /redoc
+    - List video_id `GET /api/videos`
+    - List region `GET /api/regions`
+6. Render detection result `POST /api/render/{detection_id}`
+    - List detection id `GET /api/detection/detection_jobs`
+7. View rendered video `GET /api/videos/player?detection_id={detection_id}`
+    - List detection id `GET /api/detection/detection_jobs`
 
 # APIs
 ## Videos
@@ -180,4 +188,5 @@ Modul ini digunakan untuk merender hasil deteksi ke video originalnya.
     - Optimasi saat insert ke database.
     - Optimasi model dengan versi ONNX.
     - Menambahkan dashboard atau frontend.
+    - Generate documentation menggunakan sphinx.
     - dll.

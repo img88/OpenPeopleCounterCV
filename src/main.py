@@ -66,3 +66,13 @@ app.include_router(player_route, prefix="/api")
 def health_check():
     db_check = db.health_check()
     return JSONResponse(content={"status": "ok", "message": "Server is healthy", "db_ok": db_check}, status_code=200)
+
+@app.get("/")
+def root():
+    return {
+        "name": "OpenPeopleCounter API",
+        "version": "v0.1.0",
+        "description": "API for video processing, region management, and detection.",
+        "documentation_url": "/docs",
+        "status": "OK"
+    }
