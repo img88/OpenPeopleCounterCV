@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from src.logging.logger_setup import setup_logger
 from loguru import logger
 
@@ -45,6 +46,14 @@ logger.info("SETUP finished")
 # Inisialisasi FastAPI app
 app = FastAPI()
 
+# Middleware: Logging setiap request
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    logger.info(f"Request started: {request.method} {request.url.path}")
+    response = await call_next(request)
+    logger.info(f"Request completed: {request.method} {request.url.path} -> {response.status_code}")
+    return response
+
 # Include all routers with prefix "/api"
 app.include_router(download_route, prefix="/api")
 app.include_router(region_router, prefix="/api")
@@ -52,3 +61,8 @@ app.include_router(download_crud_route, prefix="/api")
 app.include_router(detect_route, prefix="/api")
 app.include_router(render_route, prefix="/api")
 app.include_router(player_route, prefix="/api")
+
+@app.get("/health", tags=["Health"])
+def health_check():
+    db_check = db.health_check()
+    return JSONResponse(content={"status": "ok", "message": "Server is healthy", "db_ok": db_check}, status_code=200)
