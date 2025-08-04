@@ -7,6 +7,7 @@ from src.region.route import router as region_router
 from src.downloader.route import router as download_crud_route
 from src.detect.route import router as detect_route
 from src.render.route import router as render_route
+from src.player.route import router as player_route
 from src.database.database_factory import get_database_instance
 
 # Setup logging table
@@ -48,3 +49,4 @@ app.include_router(region_router)
 app.include_router(download_crud_route)
 app.include_router(detect_route)
 app.include_router(render_route)
+app.include_router(player_route)
