@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
-from typing import Any, Optional
+from typing import Any, Optional, List, Tuple
 import logging
 
 logger = logging.getLogger(__name__)
@@ -8,6 +8,13 @@ logger = logging.getLogger(__name__)
 class BaseDatabase(ABC):
     @abstractmethod
     def execute_query(self, query: str, params: Optional[tuple] = None) -> Any:
+        pass
+    
+    @abstractmethod
+    def execute_many(self, query: str, params_list: List[Tuple]) -> Any:
+        """
+        Melakukan eksekusi batch query dengan banyak parameter sekaligus.
+        """
         pass
 
     @abstractmethod
