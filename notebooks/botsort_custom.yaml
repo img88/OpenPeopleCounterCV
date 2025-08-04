@@ -1,0 +1,17 @@
+tracker_type: botsort
+
+# Asosiasi detection dengan track (IOU-based)
+track_high_thresh: 0.5        # dari 0.25 → tingkatkan agar hanya detection pasti yang di-associate
+track_low_thresh: 0.2         # dari 0.1 → toleransi untuk detection occluded
+new_track_thresh: 0.4         # dari 0.25 → hindari track baru dari noise
+track_buffer: 60              # dari 30 → pertahankan ID lebih lama saat hilang dari frame
+match_thresh: 0.85            # dari 0.8 → lebih akurat dalam matching
+fuse_score: True
+# min_box_area: 10            # opsional, aktifkan jika perlu abaikan deteksi kecil
+
+# BoT-SORT settings
+gmc_method: sparseOptFlow     # tetap, yang ringan dan stabil
+proximity_thresh: 0.5
+appearance_thresh: 0.25       # dari 0.8 → untuk ReID agar toleran terhadap perubahan penampilan
+with_reid: True               # aktifkan ReID agar ID tetap saat occlusion
+model: auto                   # tetap, otomatis sesuai model YOLO yang digunakan
