@@ -42,11 +42,13 @@ for ddl in ddls:
 
 logger.info("SETUP finished")
 
+# Inisialisasi FastAPI app
 app = FastAPI()
 
-app.include_router(download_route)
-app.include_router(region_router)
-app.include_router(download_crud_route)
-app.include_router(detect_route)
-app.include_router(render_route)
-app.include_router(player_route)
+# Include all routers with prefix "/api"
+app.include_router(download_route, prefix="/api")
+app.include_router(region_router, prefix="/api")
+app.include_router(download_crud_route, prefix="/api")
+app.include_router(detect_route, prefix="/api")
+app.include_router(render_route, prefix="/api")
+app.include_router(player_route, prefix="/api")

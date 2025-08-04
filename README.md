@@ -1,49 +1,7 @@
-- region
-    - pk_region_id
-    - region_name
-    - region_description
-    - polygon
-    - created_at
-    - updated_at
-- detect_region_mapping
-    - fk_region_id
-    - fk_detection_id
-
-- download
-    - pk_video_id
-    - name
-    - description
-    - url
-    - duration
-    - output_folder
-    - output_path
-    - created_at
-- detection
-    - pk_detection_id
-    - fk_video_id
-    - fk_region_id
-    - classes
-    - frame_number
-    - timestamp
-    - count
-    - created_at
-- detection_objects
-    - pk_object_id
-    - fk_detection_id
-    - bbox
-    - confidence
-    - inside_region
-    - created_at
-
-- render
-    - fk_video_id
-    - fk_detection_id
-    - video_path
-
 # OpenPeopleCounterCV
 Computer vision project, counting people or objects in COCO dataset in polygon areas from video stream
 
-- [ ] Desain Database
+- [x] Desain Database
     - data objek atau orang yg terdeteksi
     - data counting
     - data konfigurasi area
@@ -57,7 +15,7 @@ Computer vision project, counting people or objects in COCO dataset in polygon a
     - get /api/stats: history dan filter range waktu dan pagination
     - get /api/stats/live: menampilkan jumlah orang yg masuk/keluar
     - post api/config/area
-    - get /api/video/video=xxx: untuk menampilkan hasil render
+    - get /api//videos/player?detection_id=xxx: untuk menampilkan hasil render dari deteksi
 - [ ] Deployment
     - docker compose
     - gimana cara menjalankan sistem
