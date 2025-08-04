@@ -1,12 +1,15 @@
 import os
-import uuid
 import cv2
 import json
+import uuid
 import numpy as np
 from datetime import datetime, timedelta
+
 from ultralytics import YOLO
+
 from src.database.base_database import BaseDatabase
 from .schema import DetectionInput
+
 from loguru import logger
 from src.logging.logger_setup import setup_logger
 

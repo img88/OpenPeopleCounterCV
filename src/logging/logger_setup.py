@@ -23,6 +23,6 @@ logger.debug("Debug info", extra={"url": "http://example.com"})
     db = get_database_instance()
     db_handler = DBLogHandler(db, component)
 
-    logger.remove()  # Remove default console
-    logger.add(db_handler, level="DEBUG")  # Log to DB
-    logger.add(sys.stderr, level="INFO")   # Optional: Also log to console
+    logger.remove() 
+    logger.add(db_handler, level="DEBUG")
+    logger.add(sys.stderr, level="INFO")

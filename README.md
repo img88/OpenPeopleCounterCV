@@ -103,7 +103,7 @@ POSTGRES_DSN=dbname=testing user=postgres password=postgres host=localhost port=
 
 
 # How to Use Notebook
-Run from number 1 > 2 > 3
+Untuk menjalankan versi notebook jalankan dari nomor 1 > 2 > 3 (mungkin bisa beda dengan yg di API krn hanya test sekilas dan bugfix di versi API)
 
 # Database Design
 ![system design](img/db_design.jpg)

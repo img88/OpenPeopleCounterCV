@@ -1,7 +1,7 @@
-from pydantic import BaseModel
-from typing import Optional
 from uuid import UUID
+from typing import Optional
 from datetime import datetime
+from pydantic import BaseModel
 
 
 class VideoInput(BaseModel):
@@ -10,7 +10,7 @@ class VideoInput(BaseModel):
     url: str
     duration: int
     output_folder: str = "downloaded_video"
-    
+
 class VideoOut(BaseModel):
     pk_video_id: UUID
     name: str

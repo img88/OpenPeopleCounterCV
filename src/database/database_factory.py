@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from .postgres_database import PostgresDatabase
 from .base_database import BaseDatabase
+from .postgres_database import PostgresDatabase
 
 def get_database_instance() -> BaseDatabase:
     load_dotenv()

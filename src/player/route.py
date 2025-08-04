@@ -1,6 +1,7 @@
+import os
+
 from fastapi import APIRouter, HTTPException, Query, Depends
 from fastapi.responses import StreamingResponse
-import os
 
 from src.database.database_factory import get_database_instance
 from src.database.base_database import BaseDatabase

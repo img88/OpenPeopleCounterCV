@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
+
 from src.database.base_database import BaseDatabase
 from src.database.database_factory import get_database_instance
 from .schema import RegionCreate, RegionUpdate, RegionOut
 from . import crud as crud_region
+
 from typing import List
 
 router = APIRouter(prefix="/regions", tags=["Regions"])

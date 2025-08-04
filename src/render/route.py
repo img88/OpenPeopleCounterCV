@@ -1,10 +1,12 @@
 from uuid import UUID
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, Query
+
 from .schema import RenderResponse, RenderRegistryOut
 from src.database.base_database import BaseDatabase
 from src.database.database_factory import get_database_instance
 from src.render.render_detection import render_region_counter_output
+
 from loguru import logger
 
 router = APIRouter(prefix="/render", tags=["Render"])

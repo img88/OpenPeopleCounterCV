@@ -1,7 +1,9 @@
 import uuid
 from datetime import datetime
+
 from src.database.base_database import BaseDatabase
 from .schema import RegionCreate, RegionUpdate
+
 
 def create_region(db: BaseDatabase, data: RegionCreate):
     region_id = str(uuid.uuid4())

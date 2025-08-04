@@ -1,11 +1,12 @@
 import os
 from dotenv import load_dotenv
-from psycopg2.pool import SimpleConnectionPool
-from psycopg2.extras import execute_values
-from .base_database import BaseDatabase
-from contextlib import contextmanager
-
 from typing import Optional, Any, List, Tuple
+
+from contextlib import contextmanager
+from psycopg2.extras import execute_values
+from psycopg2.pool import SimpleConnectionPool
+
+from .base_database import BaseDatabase
 
 load_dotenv()
 
