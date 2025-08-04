@@ -155,7 +155,7 @@ Modul ini akan menyimpan video di local storage, jika tidak di lokal maka bisa m
 Yg baru implementasi adalah save video di local dan metadata di local dan db.
 
 ## Counter
-Sistem counter ini menggunakan YOLO11, versi YOLO terbaru sangat direkomendasikan karena performanya yg lebih tinggi dari pendahulunya dan juga digunakan agar tetap update dengan perkembangannya, YOLO sangat mudah untuk diimplementasikan menggunakan Ultralytics meskipun lisensinya harus menggunakan AGPL, namun untuk komersial bisa membayar lisensinya. YOLO ini terkenal sangat cepat saat melakukan deteksi walaupun menggunakan CPU, apalagi jika modelnya diconvert terlebih dahulu ke format ONNX, kecepatan deteksinya akan semakin lebih kencang.
+Sistem counter ini direkomendasikan menggunakan YOLO11, versi YOLO terbaru ini sangat direkomendasikan karena performanya yg lebih tinggi dari pendahulunya dan juga digunakan agar tetap update dengan perkembangannya, YOLO sangat mudah untuk diimplementasikan menggunakan Ultralytics meskipun lisensinya harus menggunakan AGPL, namun untuk komersial bisa membayar lisensinya. YOLO ini terkenal sangat cepat saat melakukan deteksi walaupun menggunakan CPU, apalagi jika modelnya diconvert terlebih dahulu ke format ONNX, kecepatan deteksinya akan semakin lebih kencang.
 
 Trackingnya sendiri bisa menggunakan botsort atau bytrack custom yg bisa disesuaikan dengan kebutuhan kita, jika memilih akurasi maka pilih botsort dan jika memilih kecepatan maka pilih bytetrack.
 
@@ -171,3 +171,13 @@ Bagaimana counter ini bekerja:
 
 ## Render
 Modul ini digunakan untuk merender hasil deteksi ke video originalnya.
+
+# Note
+- Karena keterbatasan waktu, proyek ini tidak di test secara keseluruhan, mungkin bisa jadi ada bug karena test case yg tidak menyeluruh.
+- Karena keterbatasan waktu juga, sistem ini masih kurang optimal, untuk kedepannya bisa ditambahkan:
+    - Metrics dengan prometheus dan grafana untuk monitoring sistemnya.
+    - Live detection (Download dan detection dalam satu waktu).
+    - Optimasi saat insert ke database.
+    - Optimasi model dengan versi ONNX.
+    - Menambahkan dashboard atau frontend.
+    - dll.
