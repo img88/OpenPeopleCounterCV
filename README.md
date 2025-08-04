@@ -17,9 +17,9 @@ Computer vision project, counting people or objects (COCO datasets) in polygon a
     - GET /api/stats/live (diganti ke GET /api/videos/player ): menampilkan jumlah orang yg masuk/keluar
     - POST api/config/area (diganti ke POST /api/regions/)
     - GET /api/videos/player?detection_id=xxx: untuk menampilkan hasil render dari deteksi
-- [ ] Deployment
-    - Note: tidak cukup waktu
-    - docker compose
+- [x] Deployment
+    - Note: tidak cukup waktu untuk buat docker compose
+    - local setup
     - gimana cara menjalankan sistem
 
 # How to run
