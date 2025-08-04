@@ -189,4 +189,5 @@ Modul ini digunakan untuk merender hasil deteksi ke video originalnya.
     - Optimasi model dengan versi ONNX.
     - Menambahkan dashboard atau frontend.
     - Generate documentation menggunakan sphinx.
+    - Menggunakan docker.
     - dll.
