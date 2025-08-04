@@ -1,12 +1,36 @@
 import json
+import uuid
 import cv2
 import numpy as np
 from collections import defaultdict
 import os
 
+from src.database.base_database import BaseDatabase
+from src.logging.logger_setup import setup_logger
+from loguru import logger
+
+setup_logger(component="Render")
+
+
 def render_region_counter_output(
-    detection_id
+    detection_id: str,
+    db: BaseDatabase
 ):
+    render_id = str(uuid.uuid4())
+    logger.info(f"Render Job: {render_id} started...")
+
+    get_info_query = """
+    SELECT a.fk_video_id, a.output_path, b.output_path
+    FROM detection_jobs a
+    JOIN video_registry b
+    ON a.fk_video_id = b.pk_video_id
+    WHERE pk_detection_id = %s
+    """
+    detection_info = db.execute_query(get_info_query, (detection_id,))
+    video_id = detection_info[0][0]
+    json_path = detection_info[0][1]
+    video_path = detection_info[0][2]
+
     # Load JSON data dan filter sesuai video_id
     with open(json_path, "r") as f:
         data = json.load(f)
@@ -29,11 +53,13 @@ def render_region_counter_output(
     output_path = os.path.join(base_folder, f"{filename}_rendered_{json_filename}_{ext}")
 
     writer = None
-    if save:
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        writer = cv2.VideoWriter(output_path, fourcc, fps, (w, h))
+
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    writer = cv2.VideoWriter(output_path, fourcc, fps, (w, h))
 
     frame_num = 0
+
+    logger.info("Start rendering...")
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -71,20 +97,21 @@ def render_region_counter_output(
                     cv2.putText(frame, label, (bbox[0], bbox[1] - space),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
-        if show:
-            cv2.imshow("Rendered Region Counter", frame)
-            if cv2.waitKey(int(1000 / fps)) & 0xFF == ord('q'):
-                break
-
-        if save:
-            writer.write(frame)
+        writer.write(frame)
 
         frame_num += 1
 
     cap.release()
     if writer:
         writer.release()
-    if show:
-        cv2.destroyAllWindows()
 
-    print(f"[INFO] Output disimpan di: {output_path}")
+    insert_to_render_registry = """
+    INSERT INTO render_registry(pk_render_id, fk_detection_id, video_path)
+    VALUES (%s, %s, %s)
+    """
+
+    db.execute_query(insert_to_render_registry, (render_id, detection_id, output_path))
+
+    logger.info(f"Render finished, Output: {output_path}")
+    
+    return render_id, output_path

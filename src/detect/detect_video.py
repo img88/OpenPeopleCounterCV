@@ -6,15 +6,19 @@ import numpy as np
 from datetime import datetime, timedelta
 from ultralytics import YOLO
 from src.database.base_database import BaseDatabase
-from src.database.database_factory import get_database_instance
 from .schema import DetectionInput
+from loguru import logger
+from src.logging.logger_setup import setup_logger
 
+setup_logger(component="detect video")
 
 def detect_video(
     detect_input: DetectionInput,
     db: BaseDatabase
 ):
     job_id = str(uuid.uuid4())
+    logger.info(f"Detection Job: {job_id} started...")
+
     video_info = db.execute_query("SELECT output_path, created_at FROM video_registry WHERE pk_video_id = %s", (detect_input.video_id, ))
     video_path = video_info[0][0]
     video_start_timestamp = video_info[0][1]
@@ -91,6 +95,7 @@ def detect_video(
     for reg in region_definitions:
         db.execute_query(insert_detect_region_mapping_query, (reg['id'], job_id))
 
+    logger.info("Start detecting...")
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret or (detect_input.max_frames > 0 and frame_number >= detect_input.max_frames):
@@ -196,7 +201,7 @@ def detect_video(
 
             results_json.append({
                 "video_id": detect_input.video_id,
-                "video_filename": video_filename,
+                "video_filename": video_path,
                 "frame_number": frame_number,
                 "timestamp": timestamp_iso,
                 "region_id": region['id'],
@@ -214,7 +219,7 @@ def detect_video(
     with open(output_path, "w") as f:
         json.dump(results_json, f, indent=2)
         
-    print(output_path)
+    logger.info(f"Detection job: {job_id} finished, json saved to: {output_path}")
 
     return results_json
 

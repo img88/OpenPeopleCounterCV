@@ -6,6 +6,7 @@ from src.downloader.route import router as download_route
 from src.region.route import router as region_router
 from src.downloader.route import router as download_crud_route
 from src.detect.route import router as detect_route
+from src.render.route import router as render_route
 from src.database.database_factory import get_database_instance
 
 # Setup logging table
@@ -23,7 +24,7 @@ logger.info("SETUP starting...")
 ddls = [
     "src/ddl/ddl_video.sql",
     "src/ddl/ddl_region.sql",
-    "src/ddl/ddl_detection.sql"
+    "src/ddl/ddl_detection.sql",
     "src/ddl/ddl_render.sql"
 ]
 
@@ -46,3 +47,4 @@ app.include_router(download_route)
 app.include_router(region_router)
 app.include_router(download_crud_route)
 app.include_router(detect_route)
+app.include_router(render_route)
